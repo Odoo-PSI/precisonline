@@ -50,7 +50,7 @@
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
-			<xpath expr="//form[1]/sheet[1]/div[not(@name)][2]/h1[1]/field[@name='name']" position="attributes">
+			<xpath expr="//form//div//field[@name='name']" position="attributes">
                 <attribute name="attrs">{}</attribute>
                 <attribute name="readonly"/>
             </xpath>
