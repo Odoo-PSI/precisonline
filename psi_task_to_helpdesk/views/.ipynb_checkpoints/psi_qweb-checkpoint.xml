@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="psi_report_invoice_document_with_payments_extended" name="Extended Invoice PSI" inherit_id="account.report_invoice_document_with_payments">
+		<xpath expr="/t/t/div/table" position="after">
+
+			<table class="table o_report_block_table">
+				<thead>
+					<tr>
+						<th>
+							<span>Name</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr t-foreach="o.timesheet_ids" t-as="table_line">
+						<td>
+							<span t-field="table_line.display_name"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</xpath>
+		<xpath expr="/t[1]/t[1]/div[1]/table[2]" position="attributes">
+			<attribute name="t-if">o.timesheet_ids</attribute>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/thead/tr/th/span" position="replace">
+			<span>Timesheet Entries</span>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/thead/tr/th" position="after">
+			<th>
+				<span>Quantity</span>
+			</th>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/tbody/tr/td" position="after">
+			<td>
+				<span t-field="table_line.unit_amount"></span>
+			</td>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/thead/tr/th[1]" position="before">
+			<th>
+				<span>Description</span>
+			</th>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/tbody/tr/td[1]" position="before">
+			<td>
+				<span t-field="table_line.helpdesk_ticket_id.description"></span>
+			</td>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/thead/tr/th[1]" position="before">
+			<th>
+				<span>ID</span>
+			</th>
+		</xpath>
+		<xpath expr="/t/t/div/table[2]/tbody/tr/td[1]" position="before">
+			<td>
+				<span t-field="table_line.helpdesk_ticket_id.id"></span>
+			</td>
+		</xpath>
+	</template>
+</odoo>

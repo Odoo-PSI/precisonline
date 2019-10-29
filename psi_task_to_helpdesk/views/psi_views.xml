@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="psi_inherit_hr_timesheet" model="ir.ui.view">
+		<field name="name">account.analytic.line.view.tree.inherit.hr_timesheet</field>
+		<field name="model">account.analytic.line</field>
+		<field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='task_id']" position="after">
+				<field name="helpdesk_ticket_id" context="{'default_project_id' : project_id}" domain="[('project_id', '=', project_id)]"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="psi_inherit_hr_timesheet_form" model="ir.ui.view">
+		<field name="name">account.analytic.line.view.form.inherit.hr_timesheet</field>
+		<field name="model">account.analytic.line</field>
+		<field name="inherit_id" ref="timesheet_grid.timesheet_view_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='task_id']" position="after">
+				<field name="helpdesk_ticket_id" context="{'default_project_id' : project_id}" domain="[('project_id', '=', project_id)]"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="psi_inherit_helpdesk_ticket_form" model="ir.ui.view">
+		<field name="name">helpdesk.ticket.form.inherit.timesheet.ticket.form</field>
+		<field name="model">helpdesk.ticket</field>
+		<field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+		<field name="arch" type="xml">
+			<xpath expr="//notebook//page//field[@name='timesheet_ids']//tree//field[@name='employee_id']" position="after">
+				<field name='task_id' context="{'default_project_id': project_id}" options="{'no_create': True}" />
+			</xpath>
+		</field>
+	</record>
+
+	<record id="psi_helpdesk_ticket_view_form_inherit_helpdesk_timesheet" model="ir.ui.view">
+		<field name="name">psi.helpdesk.ticket.form.inherit.timesheet.ticket.form</field>
+		<field name="model">helpdesk.ticket</field>
+		<field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='task_id']" position="attributes">
+				<attribute name="attrs">{}</attribute>
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+    
+    <record id="psi_sale_view_order_form" model="ir.ui.view">
+		<field name="name">psi.sale.view.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//form[1]/sheet[1]/div[not(@name)][2]/h1[1]/field[@name='name']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+                <attribute name="readonly"/>
+            </xpath>
+		</field>
+	</record>
+
+    
+    <record id="psi_helpdesk_helpdesk_ticket_view_form" model="ir.ui.view">
+		<field name="name">psi.helpdesk.helpdesk.ticket.view.form</field>
+		<field name="model">helpdesk.ticket</field>
+		<field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+		<field name="arch" type="xml">
+           <xpath expr="//header" position="inside">
+              <field name="company_id" invisible="1"/>
+              <field name="display_timesheet_timer" invisible="1"/>
+              <field name="timesheet_timer_pause" invisible="1"/>
+              <field name="allow_billable" invisible="1"/>
+              <button class="btn-primary" name="action_timer_start" type="object" string="Start" attrs="{'invisible': ['|', '|', ('total_hours_spent', '!=', 0), ('timesheet_timer_start', '!=', False), ('display_timesheet_timer', '=', False)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+              <button class="btn-secondary" name="action_timer_start" type="object" string="Start" attrs="{'invisible': ['|', '|', ('total_hours_spent', '=', 0), ('timesheet_timer_start', '!=', False), ('display_timesheet_timer', '=', False)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+              <button name="action_make_billable" string="Create Sales Order" type="object" attrs="{'invisible': ['|', '|', '|', '|', '|', ('allow_billable', '=', False), ('allow_timesheets', '=', False), ('billable_type', '=', 'employee_rate'), ('partner_id', '=', False), ('sale_order_id', '!=', False), '&amp;', ('display_timesheet_timer', '=', True), ('timesheet_timer_start', '!=', False)]}" groups="sales_team.group_sale_salesman"/>
+              <button class="btn-primary btn-danger o_fsm_stop" name="action_timer_stop" type="object" string="Stop" attrs="{'invisible': ['|', ('timesheet_timer_start', '=', False), ('display_timesheet_timer', '=', False)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+              <button class="btn-primary" name="action_timer_pause" type="object" string="Pause" attrs="{'invisible': ['|', '|', ('timesheet_timer_pause', '!=', False), ('timesheet_timer_start', '=', False), ('display_timesheet_timer', '=', False)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+              <button class="btn-primary btn-info" name="action_timer_resume" type="object" string="Resume" attrs="{'invisible': ['|', '|', ('timesheet_timer_pause', '=', False), ('timesheet_timer_start', '=', False), ('display_timesheet_timer', '=', False)]}" groups="hr_timesheet.group_hr_timesheet_user"/>
+          </xpath>
+          <xpath expr="//field[@name='stage_id']" position="attributes">
+              <attribute name="class">ml-2</attribute>
+          </xpath>
+          <xpath expr="//field[@name='stage_id']" position="before">
+              <field name="timesheet_timer_start" widget="timesheet_timer" class="text-danger ml-auto h2 ml-4 font-weight-bold" groups="hr_timesheet.group_hr_timesheet_user"/>
+          </xpath>
+        </field>
+	</record>
+
+</odoo>
