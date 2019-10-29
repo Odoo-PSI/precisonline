@@ -57,7 +57,7 @@
 		</field>
 	</record>
 
-    
+    <!--
     <record id="psi_helpdesk_helpdesk_ticket_view_form" model="ir.ui.view">
 		<field name="name">psi.helpdesk.helpdesk.ticket.view.form</field>
 		<field name="model">helpdesk.ticket</field>
@@ -83,5 +83,6 @@
           </xpath>
         </field>
 	</record>
+    -->
 
 </odoo>
