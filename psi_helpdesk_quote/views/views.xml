@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+<!-- Add Quote Buttons to Helpdesk Ticket Form -->
+    <record model="ir.ui.view" id="psi_helpdesk_ticket_form_extend">
+      <field name="name">psi.helpdesk.ticket.form.extend</field>
+      <field name="model">helpdesk.ticket</field>
+      <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+      <field name="arch" type="xml">
+          <data>
+            <xpath expr="//header" position="inside">
+              <button string="New Quotation" name="action_sale_quotations_new" type="object" class="oe_highlight" />
+            </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_sale_quotation" icon="fa-pencil-square-o" attrs="{'invisible': [('psi_quotation_count', '=', 0)]}">
+                  <field name="psi_quotation_count" widget="statinfo" string="Quotations"/>
+                </button>
+
+                <button class="oe_stat_button" type="object" name="action_view_sale_order" icon="fa-usd" attrs="{'invisible': ['|', ('psi_sale_order_count', '=', 0)]}">
+                  <div class="o_field_widget o_stat_info">
+                    <span class="o_stat_value"><field name="psi_sale_amount_total" widget="monetary" options="{'currency_field': 'psi_company_currency'}"/></span>
+                    <span class="o_stat_text"> Orders</span>
+                    <field name="psi_sale_order_count" invisible="1"/>
+                  </div>
+                </button>
+
+            </div>
+          </data>
+      </field>
+    </record>
+<!-- Add Ticket Id to Order-->
+    <record model="ir.ui.view" id="psi_sale_order_form_extend">
+      <field name="name">psi.sale.order.form.extend</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+          <data>
+            <xpath expr="//field[@name='opportunity_id']" position="after">
+              <field name="psi_ticket_id"/>
+            </xpath>
+          </data>
+      </field>
+    </record>
+  </data>
+</odoo>
