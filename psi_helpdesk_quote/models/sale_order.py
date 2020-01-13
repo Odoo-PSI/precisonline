@@ -13,7 +13,6 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     def _timesheet_create_project(self):
-        # super(SaleOrderLine, self)._timesheet_create_project()
         """ Generate project for the given so line, and link it.
             :param project: record of project.project in which the task should be created
             :return task: record of the created task
@@ -54,6 +53,11 @@ class SaleOrderLine(models.Model):
             })
             """ psi_helpdesk_quote, JRM 2020 Jan 13, Update Helpdesk Ticket project with newly created
             project ->"""
+            ticket = self.order_id.psi_ticket_id
+            if ticket:
+                ticket.write({
+                    'project_id' : project.id
+                })
             """ psi_helpdesk_quote, JRM 2020 Jan 13 <- """
         else:
             project = self.env['project.project'].create(values)
@@ -67,7 +71,6 @@ class SaleOrderLine(models.Model):
         return project
 
     def _timesheet_service_generation(self):
-        # super(SaleOrderLine, self)._timesheet_service_generation()
         """ For service lines, create the task or the project. If already exists, it simply links
             the existing one to the line.
             Note: If the SO was confirmed, cancelled, set to draft then confirmed, avoid creating a
