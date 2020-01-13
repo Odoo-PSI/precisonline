@@ -41,5 +41,18 @@
           </data>
       </field>
     </record>
+<!-- Add Global Project flag to Project Form -->
+    <record model="ir.ui.view" id="psi_project_form_extend">
+      <field name="name">psi.project.form.extend</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+          <data>
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="psi_global_project"/>
+            </xpath>
+          </data>
+      </field>
+    </record>
   </data>
 </odoo>
