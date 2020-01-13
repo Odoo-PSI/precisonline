@@ -132,7 +132,7 @@ class SaleOrderLine(models.Model):
             If Project associated to a ticket and a project has already been assigned to the ticket,
             use the existing project and create all subsequent tasks on that project.
             get the project number -> """
-            if self.order_id.psi_ticket_id.project_id.allow_billable:
+            if self.order_id.psi_ticket_id.project_id.allow_billable and not self.order_id.psi_ticket_id.project_id.psi_global_project:
                 project = self.order_id.psi_ticket_id.project_id
             """ psi_helpdesk_quote, JRM 2020 Jan 10 """
             if not project and _can_create_project(so_line):
