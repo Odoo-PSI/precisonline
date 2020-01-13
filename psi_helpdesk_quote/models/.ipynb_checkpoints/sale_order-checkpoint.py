@@ -52,6 +52,9 @@ class SaleOrderLine(models.Model):
             project.tasks.filtered(lambda task: task.parent_id != False).write({
                 'sale_line_id': self.id,
             })
+            """ psi_helpdesk_quote, JRM 2020 Jan 13, Update Helpdesk Ticket project with newly created
+            project ->"""
+            """ psi_helpdesk_quote, JRM 2020 Jan 13 <- """
         else:
             project = self.env['project.project'].create(values)
 
