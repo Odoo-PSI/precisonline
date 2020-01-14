@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_psi_helpdesk_timer_psi_helpdesk_timer,psi_helpdesk_timer.psi_helpdesk_timer,model_psi_helpdesk_timer_psi_helpdesk_timer,base.group_user,1,1,1,1
