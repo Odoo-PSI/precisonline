@@ -26,7 +26,7 @@ class HelpdeskTicketCreateTimesheet(models.TransientModel):
             result['ticket_id'] = active_id
             result['task_id'] = ticket_id.task_id.id
             result['project_id'] = ticket_id.project_id.id
-            result['description'] = ticket_id.name
+            # result['description'] = ticket_id.name
         return result
 
     time_spent = fields.Float('Time', precision_digits=2)
