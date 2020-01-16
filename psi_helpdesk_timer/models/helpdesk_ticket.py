@@ -12,7 +12,6 @@ class HelpdeskTicket(models.Model):
     psi_timesheet_timer_first_start = fields.Datetime("Timesheet Timer First Use", readonly=True)
     psi_timesheet_timer_last_stop = fields.Datetime("Timesheet Timer Last Use", readonly=True)
     psi_display_timesheet_timer = fields.Boolean("Display Timesheet Time", compute='_compute_display_timesheet_timer')
-    # psi_allow_billable = fields.Boolean(related="project_id.allow_billable")
 
     @api.depends('task_id.allow_timesheets', 'project_id.allow_timesheet_timer', 'task_id.analytic_account_active')
     def _compute_display_timesheet_timer(self):
@@ -25,6 +24,7 @@ class HelpdeskTicket(models.Model):
 
     def action_timer_start(self):
         self.ensure_one()
+        # Get list of tickets for user that are in a started status (from model helpdesk)
         if not self.psi_timesheet_timer_first_start:
             self.write({'psi_timesheet_timer_first_start': fields.Datetime.now()})
         return self.write({'psi_timesheet_timer_start': fields.Datetime.now()})
@@ -72,7 +72,7 @@ class HelpdeskTicket(models.Model):
             "target": 'new',
             "context": {
                 **self.env.context,
-                'active_id': self.task_id.id,
+                'active_id': self.id,
                 'active_model': 'helpdesk.ticket',
                 'default_time_spent': time_spent,
             },

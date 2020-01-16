@@ -21,9 +21,27 @@
                 <attribute name="class">ml-2</attribute>
             </xpath>
             <xpath expr="//field[@name='stage_id']" position="before">
-                <field name="psi_timesheet_timer_start" widget="timesheet_timer" class="text-danger ml-auto h2 ml-4 font-weight-bold" groups="hr_timesheet.group_hr_timesheet_user"/>
+                <field name="psi_timesheet_timer_start" widget="psi_timesheet_timer" class="text-danger ml-auto h2 ml-4 font-weight-bold" groups="hr_timesheet.group_hr_timesheet_user"/>
             </xpath>
         </field>
     </record>
-
+    <!-- Add timer representation to ticket kanban -->
+    <record id="psi_helpdesk_ticket_view_kanban" model="ir.ui.view">
+        <field name="name">psi.helpdesk.ticket.kanban.timer</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
+                <field name="psi_display_timesheet_timer" invisible="1"/>
+                <field name="psi_timesheet_timer_start" invisible="1"/>
+                <field name="psi_timesheet_timer_pause" invisible="1"/>
+                <t t-if="record.psi_display_timesheet_timer &amp;&amp; record.psi_timesheet_timer_pause.raw_value">
+                    <i class="fa fa-pause text-warning" title="Timer is Paused"></i>
+                </t>
+                <t t-elif="record.psi_display_timesheet_timer &amp;&amp; record.psi_timesheet_timer_start.raw_value">
+                    <i class="fa fa-play text-success" title="Timer is Running"></i>
+                </t>
+            </xpath>
+        </field>
+    </record>
 </odoo>

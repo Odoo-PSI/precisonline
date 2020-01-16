@@ -1,0 +1,7 @@
+<odoo>
+    <template id="assets_backend" name="psi_helpdesk_timer_assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/psi_helpdesk_timer/static/src/js/timer.js"></script>
+        </xpath>
+    </template>
+</odoo>

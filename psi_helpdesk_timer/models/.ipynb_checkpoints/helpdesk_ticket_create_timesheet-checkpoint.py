@@ -20,22 +20,26 @@ class HelpdeskTicketCreateTimesheet(models.TransientModel):
             raise UserError(_("You can only apply this action from a ticket."))
 
         active_id = self._context.get('active_id')
+
         if 'task_id' in fields and active_id:
-            task_id = self.env['project.task'].browse(active_id)
-            result['task_id'] = active_id
-            result['description'] = task_id.name
+            ticket_id = self.env['helpdesk.ticket'].browse(active_id)
+            result['ticket_id'] = active_id
+            result['task_id'] = ticket_id.task_id.id
+            result['project_id'] = ticket_id.project_id.id
+            result['description'] = ticket_id.name
         return result
 
     time_spent = fields.Float('Time', precision_digits=2)
     description = fields.Char('Description')
-    task_id = fields.Many2one('project.task', "Task", help="Task for which timesheet entry is made", required=True)
-    ticket_id = fields.Many2one('helpdesk.ticket', "Ticket", help="Ticket for which timesheet entry is made", required=True, default=self.id)
+    ticket_id = fields.Many2one('helpdesk.ticket', "Ticket", help="Ticket for which timesheet entry is made", required=True)
     project_id = fields.Many2one('project.project', "Project", help="Project for which timesheet entry is made", required=True)
+    task_id = fields.Many2one('project.task', "Task", help="Task for which timesheet entry is made", required=True, domain="[('project_id', '=', project_id)]")
 
     def save_timesheet(self):
         values = {
             'task_id': self.task_id.id,
             'project_id': self.task_id.project_id.id,
+            'helpdesk_ticket_id':self.ticket_id.id,
             'date': datetime.now(),
             'name': self.description,
             'user_id': self.env.uid,

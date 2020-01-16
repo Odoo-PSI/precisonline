@@ -8,9 +8,9 @@
             <form string="Save time">
                 <group>
                     <group>
-                        <!-- <field name="project_id" invisible="True"/> -->
-                        <field name="ticket_id" invisible="False"/>
-                        <field name="task_id" invisible="False" context="{'default_project_id': task_id.project_id}"/>
+                        <field name="project_id" invisible="True"/>
+                        <field name="ticket_id" invisible="False" options='{"no_create": True}'/>
+                        <field name="task_id" invisible="False" context="{'default_project_id': project_id}" options='{"no_create": True}'/>
                         <label for="time_spent"/>
                         <div class="o_row" >
                             <field name="time_spent" widget="float_time" required="True"/>
