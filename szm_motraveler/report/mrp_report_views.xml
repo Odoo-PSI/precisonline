@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            string="Production Order SZM" 
+            id="action_report_production_order_szm" 
+            model="mrp.production" 
+            name="mrp.report_mrporder_szm"
+            file="mrp.report.mrp_production_templates" 
+            report_type="qweb-pdf"
+            print_report_name="'SZM Production Order - %s' % object.name"
+        />
+    </data>
+</odoo>

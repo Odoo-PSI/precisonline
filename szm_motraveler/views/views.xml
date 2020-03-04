@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="szm_motraveler.list">
+      <field name="name">szm_motraveler list</field>
+      <field name="model">szm_motraveler.szm_motraveler</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="szm_motraveler.action_window">
+      <field name="name">szm_motraveler window</field>
+      <field name="res_model">szm_motraveler.szm_motraveler</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="szm_motraveler.action_server">
+      <field name="name">szm_motraveler server</field>
+      <field name="model_id" ref="model_szm_motraveler_szm_motraveler"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="szm_motraveler" id="szm_motraveler.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="szm_motraveler.menu_1" parent="szm_motraveler.menu_root"/>
+    <menuitem name="Menu 2" id="szm_motraveler.menu_2" parent="szm_motraveler.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="szm_motraveler.menu_1_list" parent="szm_motraveler.menu_1"
+              action="szm_motraveler.action_window"/>
+    <menuitem name="Server to list" id="szm_motraveler" parent="szm_motraveler.menu_2"
+              action="szm_motraveler.action_server"/>
+-->
+  </data>
+</odoo>
