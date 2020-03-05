@@ -14,7 +14,7 @@
 
     'category': 'Manufacturing',
     'sequence': 50,
-    'version': '0.1',
+    'version': '0.2',
     'installable': True,
     'application': False,
     'auto_install': False,

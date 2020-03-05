@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <odoo>
+<odoo>
+    <data>
         <record id="mrp_production_form_szm_view" model="ir.ui.view">
             <field name="name">mrp.production.szm.form</field>
             <field name="model">mrp.production</field>
@@ -173,5 +174,6 @@
         id = "action_menu_mrp_production_form_szm"
         name = "Product Entry SZM"
         sequence = "20"/>
-    </odoo>
+    </data>
+</odoo>
 
